@@ -4,18 +4,30 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Entity\Emprunteur;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user{id}", name="app_getUser{id}")
+     * @Route("/emprunteurs", name="app_emprunteur")
      */
-    public function getUser($id)
+    public function getEmprunteurs()
+    {
+        $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
+        $emprunteurs = $repository->findAll();   
+        return $this->render('emprunteur/index.html.twig', [
+            'emprunteurs' => $emprunteurs
+        ]);
+    }
+
+    /**
+     * @Route("/emprunteur/{id}", name="app_getEmprunteur{id}")
+     */
+    public function getEmprunteur($id)
     {   
         $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
-        $Emprunteur = $repository->findOneBy(array('id' => $id));   
-        return $this->render('user/singleUser.html.twig', [
-            'id' => $id, 'Emprunteur' => $Emprunteur
+        $emprunteur = $repository->findOneBy(array('id' => $id));   
+        return $this->render('emprunteur/singleUser.html.twig', [
+            'id' => $id, 'emprunteur' => $emprunteur
         ]);
     }
 }

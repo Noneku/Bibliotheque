@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block body %}  
+<div class="card my-5 mx-5" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">L'emprunteur n°{{emprunteur.id}}</h5>
+    <p class="card-text">{{emprunteur.nom}}
+                         {{emprunteur.prenom}}
+    </p>
+    <a href="#" class="btn btn-primary">Ajouter au panier</a>
+  </div>
+</div>  
+
+{% endblock %}

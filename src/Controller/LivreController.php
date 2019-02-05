@@ -8,14 +8,14 @@ use App\Entity\Livre;
 class LivreController extends AbstractController
 {
     /**
-     * @Route("/livre", name="livre")
+     * @Route("", name="livre")
      */
     public function index()
     {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $Livre = $repository->findAll();   
+        $livre = $repository->findAll();   
         return $this->render('livre/index.html.twig', [
-            'Livres' => $Livre
+            'livres' => $livre
         ]);
     }
 
@@ -25,9 +25,9 @@ class LivreController extends AbstractController
     public function getLivre($id)
     {   
         $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $Livre = $repository->findOneBy(array('id' => $id));   
+        $livre = $repository->findOneBy(array('id' => $id));   
         return $this->render('livre/singleLivre.html.twig', [
-            'id' => $id, 'Livre' => $Livre
+            'id' => $id, 'livre' => $livre
         ]);
     }
 }
