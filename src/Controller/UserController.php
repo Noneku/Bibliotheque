@@ -8,12 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/user", name="user")
+     * @Route("/user{id}", name="app_getUser{id}")
      */
-    public function index()
-    {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+    public function getUser($id)
+    {   
+        $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
+        $Emprunteur = $repository->findOneBy(array('id' => $id));   
+        return $this->render('user/singleUser.html.twig', [
+            'id' => $id, 'Emprunteur' => $Emprunteur
         ]);
     }
 }
