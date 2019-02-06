@@ -3,18 +3,19 @@
 {% block title %}Hello LivreController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/Lab/symfony/Bibliotheque/src/Controller/LivreController.php'|file_link(0) }}">src/Controller/LivreController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/Lab/symfony/Bibliotheque/templates/livre/index.html.twig'|file_link(0) }}">templates/livre/index.html.twig</a></code></li>
-    </ul>
-</div>
+    {% for livre in livres %}
+    <div class="card my-5 mx-5" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Le livre N°{{livre.id}}</h5>
+            <p class="card-text">{{livre.titre}}
+                                    {{livre.auteur}}
+                                    {{livre.resume}}
+                                    {{livre.dateParution|date('d/m/Y')}}
+                                    {{livre.status}}
+                                    {{livre.emprunteur}}
+            </p>
+            <a href="livre{{livre.id}}" class="btn btn-primary">Voir détails</a>
+        </div>
+    </div>
+{% endfor %}
 {% endblock %}
