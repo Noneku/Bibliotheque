@@ -41,10 +41,6 @@ class Livre
      */
     private $status;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $emprunteur;
 
     public function getId(): ?int
     {
@@ -111,15 +107,4 @@ class Livre
         return $this;
     }
 
-    public function getEmprunteur(): ?int
-    {
-        return $this->emprunteur;
-    }
-
-    public function setEmprunteur(int $emprunteur): self
-    {
-        $this->emprunteur = $emprunteur;
-
-        return $this;
-    }
 }
