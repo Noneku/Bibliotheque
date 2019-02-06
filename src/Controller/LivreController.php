@@ -14,7 +14,7 @@ class LivreController extends AbstractController
     public function index()
     {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $livre = $repository->findAll();
+        $livre = $repository->findAll();   
         return $this->render('livre/index.html.twig', [
             'livres' => $livre
         ]);
@@ -26,7 +26,8 @@ class LivreController extends AbstractController
     public function getLivre($id)
     {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $livre = $repository->findOneBy(array('id' => $id));
+        $livre = $repository->findOneBy(array('id' => $id));   
+
         return $this->render('livre/singleLivre.html.twig', [
             'id' => $id, 'livre' => $livre
         ]);
