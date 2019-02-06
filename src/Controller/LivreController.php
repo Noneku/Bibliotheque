@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Livre;
+
 class LivreController extends AbstractController
 {
     /**
@@ -20,12 +21,13 @@ class LivreController extends AbstractController
     }
 
     /**
-     * @Route("/livre{id}", name="app_getLivre{id}")
+     * @Route("/livre/{id}", name="app_getLivre{id}")
      */
     public function getLivre($id)
-    {   
+    {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
         $livre = $repository->findOneBy(array('id' => $id));   
+
         return $this->render('livre/singleLivre.html.twig', [
             'id' => $id, 'livre' => $livre
         ]);

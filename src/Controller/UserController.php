@@ -22,6 +22,7 @@ class UserController extends AbstractController
     /**
      * @Route("/emprunteur/{id}", name="app_getEmprunteur{id}")
      */
+
     public function getEmprunteur($id)
     {   
         $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
