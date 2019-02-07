@@ -12,10 +12,11 @@
                                     {{livre.resume}}
                                     {{livre.dateParution|date('d/m/Y')}}
                                     {{livre.status}}
-                                    {{livre.emprunteur}}
+                                    {{livre.category}}
             </p>
             <a href="livre/{{livre.id}}" class="btn btn-primary">Voir détails</a>
         </div>
     </div>
 {% endfor %}
+{{dump(livres)}}
 {% endblock %}
