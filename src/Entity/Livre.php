@@ -63,7 +63,7 @@ class Livre
     {
         return $this->titre;
     }
-    
+
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;

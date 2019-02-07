@@ -1,18 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
-
-{% block body %}
-{% for emprunteur in emprunteurs %}
-    <div class="card my-5 mx-5" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">L'emprunteur N°{{emprunteur.id}}</h5>
-            <p class="card-text">{{emprunteur.nom}}
-                                 {{emprunteur.prenom}}
-
-            </p>
-            <a href="emprunteur/{{emprunteur.id}}" class="btn btn-primary">Voir détails</a>
-        </div>
-    </div> 
-{% endfor %}
+{% block aside %}
+  {% for emprunteur in emprunteurs %}
+      <div class="card my-5 mx-5 d-flex flex-row justify-content-around align-items-center flex-wrap" style="width: 18rem;">
+          <div class="card-body">
+              <h5 class="card-title">{{emprunteur.nom}}{{emprunteur.prenom}}</h5>
+              <p class="card-text">{{emprunteur.numero}}</p>
+              <a href="emprunteur/{{emprunteur.id}}" class="btn btn-primary">Voir détails</a>
+          </div>
+      </div>
+  {% endfor %}
 {% endblock %}

@@ -1,19 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}{% endblock %}
-{% block body %}
-<div class="card my-5 mx-5" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Le livre N°{{livre.id}}</h5>
-    <p class="card-text">{{livre.titre}}
-                            {{livre.auteur}}
-                            {{livre.resume}}
-                            {{livre.dateParution|date('d/m/Y')}}
-                            {{livre.status}}
-                            {{livre.emprunteur}}
-    </p>
-    <a href="#" class="btn btn-primary">Ajouter au panier</a>
+{% block aside %}
+  <div class="card my-5 mx-5" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ livre.titre }}</h5>
+        <ul class="card-text">
+          <li>Auteur : {{ livre.auteur }}</li>
+          <li>Resumé : {{ livre.resume }}</li>
+          <li>Date : {{ livre.dateParution|date('d/m/Y') }}</li>
+          <li>Status : {{ livre.status }}</li>
+          <li>Category : {{ livre.category.name }}</li>
+        </ul>
+      <a href="#" class="btn btn-primary">Ajouter au panier</a>
+    </div>
   </div>
-</div>
-
 {% endblock %}

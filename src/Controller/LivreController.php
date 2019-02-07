@@ -16,15 +16,25 @@ use App\Entity\Category;
 class LivreController extends AbstractController
 {
 
+  /**
+   * @Route("", name="livre")
+   */
+  public function home()
+  {
+
+      return $this->render('home.html.twig');
+  }
+
     /**
-     * @Route("", name="livre")
+     * @Route("/livres", name="app_livres")
      */
     public function index()
     {
-        $repository = $this->getDoctrine()->getRepository(Livre::class)->getCategorywithLivre();
-        $livre = $repository;
+        $repository = $this->getDoctrine()->getRepository(Livre::class);
+        $livres = $repository->getCategorywithLivre();
+
         return $this->render('livre/index.html.twig', [
-            'livres' => $livre
+            'livres' => $livres
         ]);
     }
 
