@@ -19,20 +19,10 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-    public function getCategorywithLivre() {
-
-      return $this->createQueryBuilder('l')
-          ->addSelect('c')
-          ->leftJoin('l.category', 'c')
-          ->getQuery()
-          ->getResult()
-      ;
-    }
-
     //**
     //  * @return Livre[] Returns an array of Livre objects
     //  */
-    
+
     public function getCategorywithLivre() {
 
         return $this->createQueryBuilder('l')
