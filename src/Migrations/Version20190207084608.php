@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190206144758 extends AbstractMigration
+final class Version20190207084608 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,7 @@ final class Version20190206144758 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE livre DROP emprunteur');
+        $this->addSql('ALTER TABLE livre DROP titre');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +30,6 @@ final class Version20190206144758 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE livre ADD emprunteur INT NOT NULL');
+        $this->addSql('ALTER TABLE livre ADD titre VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci');
     }
 }
