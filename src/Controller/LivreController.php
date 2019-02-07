@@ -3,23 +3,24 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-
 use App\Entity\Livre;
 
 class LivreController extends AbstractController
 {
+
     /**
      * @Route("", name="livre")
      */
     public function index()
     {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $livre = $repository->findAll();   
+        $livre = $repository->findAll();
         return $this->render('livre/index.html.twig', [
             'livres' => $livre
         ]);
@@ -31,31 +32,30 @@ class LivreController extends AbstractController
     public function getLivre($id)
     {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $livre = $repository->findOneBy(array('id' => $id));   
+        $livre = $repository->findOneBy(array('id' => $id));
 
         return $this->render('livre/singleLivre.html.twig', [
             'id' => $id, 'livre' => $livre
         ]);
     }
 
-    
     /**
-     * @Route("/livre/add", name="app_addLivre")
-    */    
-    public function formAdd(Request $request)
+     * @Route("/ajout/livre", name="app_addLivre")
+     */
+    public function formAdd()
     {
-        $livre = new Livre();
-        $livre->setLivre('Write a blog post');
-        $livre->setDueDate(new \DateTime('tomorrow'));
+      $livre = new Livre();
 
-        $form = $this->createFormBuilder($livre)
-            ->add('livre', TextType::class)
-            ->add('dueDate', DateType::class)
-            ->add('save', SubmitType::class, ['label' => 'Create Livre'])
-            ->getForm();
+      $form = $this->createFormBuilder($livre)
+                  ->add('titre', TextType::class, ['label' => 'Titre'])
+                  ->add('auteur', TextType::class, ['label' => 'Auteur'])
+                  ->add('resume', TextareaType::class, ['label' => 'Resumé'])
+                  ->add('status', ChoiceType::class, ['choices' => ['En stock' => 1 , 'Pas en stock' => 0]])
+                  ->add('Envoyer', SubmitType::class, ['attr' => ['label' => 'Envoyer']])
+                  ->getForm();
 
-        return $this->render('livre/new.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('livre/addLivre.html.twig', [
+          'form' => $form->createView(),
         ]);
     }
 }
