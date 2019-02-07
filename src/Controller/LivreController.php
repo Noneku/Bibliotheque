@@ -19,8 +19,8 @@ class LivreController extends AbstractController
      */
     public function index()
     {
-        $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $livre = $repository->findAll();
+        $repository = $this->getDoctrine()->getRepository(Livre::class)->getCategorywithLivre();
+        $livre = $repository;
         return $this->render('livre/index.html.twig', [
             'livres' => $livre
         ]);
@@ -44,6 +44,7 @@ class LivreController extends AbstractController
      */
     public function formAdd()
     {
+
       $livre = new Livre();
 
       $form = $this->createFormBuilder($livre)
