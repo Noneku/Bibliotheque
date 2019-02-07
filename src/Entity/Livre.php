@@ -37,12 +37,6 @@ class Livre
     private $status;
 
     /**
-<<<<<<< HEAD
-     * @ORM\Column(type="string", length=255)
-     */
-    private $titre;
-
-=======
      * @ORM\ManyToOne(targetEntity="App\Entity\Emprunteur", inversedBy="livres")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -53,7 +47,6 @@ class Livre
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
->>>>>>> b924a719f1974bcfcd995fe58a51a9a64b8c85c8
 
     public function getId(): ?int
     {
@@ -104,41 +97,6 @@ class Livre
     public function setStatus(bool $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-<<<<<<< HEAD
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(string $titre): self
-    {
-        $this->titre = $titre;
-=======
-    public function getEmprunteur(): ?Emprunteur
-    {
-        return $this->emprunteur;
-    }
-
-    public function setEmprunteur(?Emprunteur $emprunteur): self
-    {
-        $this->emprunteur = $emprunteur;
-
-        return $this;
-    }
-
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
-
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
->>>>>>> b924a719f1974bcfcd995fe58a51a9a64b8c85c8
 
         return $this;
     }
