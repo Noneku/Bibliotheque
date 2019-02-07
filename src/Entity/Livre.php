@@ -38,7 +38,7 @@ class Livre
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Emprunteur", inversedBy="livres")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $emprunteur;
 
