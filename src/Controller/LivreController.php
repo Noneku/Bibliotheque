@@ -9,7 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Livre;
+use App\Entity\Category;
 
 class LivreController extends AbstractController
 {
@@ -52,6 +54,7 @@ class LivreController extends AbstractController
                   ->add('auteur', TextType::class, ['label' => 'Auteur'])
                   ->add('resume', TextareaType::class, ['label' => 'Resumé'])
                   ->add('status', ChoiceType::class, ['choices' => ['En stock' => 1 , 'Pas en stock' => 0]])
+                  ->add('category', EntityType::class, ['class' => Category::class,])
                   ->add('Envoyer', SubmitType::class, ['attr' => ['label' => 'Envoyer']])
                   ->getForm();
 

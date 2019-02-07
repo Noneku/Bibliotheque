@@ -19,6 +19,12 @@ class Livre
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $titre;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $auteur;
 
     /**
@@ -38,7 +44,7 @@ class Livre
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Emprunteur", inversedBy="livres")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $emprunteur;
 
@@ -53,6 +59,17 @@ class Livre
         return $this->id;
     }
 
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+    
+    public function setTitre(string $titre): self
+    {
+        $this->titre = $titre;
+        return $this;
+    }
+
     public function getAuteur(): ?string
     {
         return $this->auteur;
@@ -61,7 +78,6 @@ class Livre
     public function setAuteur(string $auteur): self
     {
         $this->auteur = $auteur;
-
         return $this;
     }
 
@@ -73,7 +89,6 @@ class Livre
     public function setResume(string $resume): self
     {
         $this->resume = $resume;
-
         return $this;
     }
 
@@ -85,7 +100,6 @@ class Livre
     public function setDateParution(\DateTimeInterface $dateParution): self
     {
         $this->dateParution = $dateParution;
-
         return $this;
     }
 
@@ -97,7 +111,28 @@ class Livre
     public function setStatus(bool $status): self
     {
         $this->status = $status;
+        return $this;
+    }
 
+    public function getEmprunteur(): ?Emprunteur
+    {
+        return $this->emprunteur;
+    }
+
+    public function setEmprunteur(?Emprunteur $emprunteur): self
+    {
+        $this->emprunteur = $emprunteur;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
         return $this;
     }
 
