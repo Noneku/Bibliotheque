@@ -22,7 +22,7 @@ class LivreRepository extends ServiceEntityRepository
     //**
     //  * @return Livre[] Returns an array of Livre objects
     //  */
-    
+
     public function getCategorywithLivre() {
 
         return $this->createQueryBuilder('l')
