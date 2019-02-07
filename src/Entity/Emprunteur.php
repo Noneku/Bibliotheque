@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class Emprunteur
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="emprunteur")
+     */
+    private $livres;
+
+    public function __construct()
+    {
+        $this->livres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class Emprunteur
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Livre[]
+     */
+    public function getLivres(): Collection
+    {
+        return $this->livres;
+    }
+
+    public function addLivre(Livre $livre): self
+    {
+        if (!$this->livres->contains($livre)) {
+            $this->livres[] = $livre;
+            $livre->setEmprunteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): self
+    {
+        if ($this->livres->contains($livre)) {
+            $this->livres->removeElement($livre);
+            // set the owning side to null (unless already changed)
+            if ($livre->getEmprunteur() === $this) {
+                $livre->setEmprunteur(null);
+            }
+        }
 
         return $this;
     }
