@@ -2,9 +2,12 @@
 
 {% block title %}Nos ouvrages{% endblock %}
   {% block aside %}
+  <div class="container w-25 ml-5">
   {{ form_start(form) }}
 
   {{ form_end(form) }}
+  </div>
+  
     {% for livre in livres %}
       <div class="card my-5 mx-5 d-flex flex-row justify-content-center align-items-center flex-wrap" style="width: 18rem;">
           <div class="card-body">
@@ -23,5 +26,5 @@
           </div>
       </div>
     {% endfor %}
-    <a href="{{ path('app_addLivre')}}" class="btn btn-primary mt-1 d-flex flex-row justify-content-center">Ajouter !</a>
+    <a href="{{ path('app_addLivre')}}" class="btn btn-primary ml-5 mb-5">Ajouter !</a>
   {% endblock %}

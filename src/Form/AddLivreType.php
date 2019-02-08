@@ -27,7 +27,9 @@ class AddLivreType extends AbstractType
                   ->add('category', EntityType::class, [
                     'class' => Category::class,                
                     'choice_label' => 'name'])
-                  ->add('date_parution', DateType::class, ['label' => 'date'])
+                  ->add('date_parution', DateType::class, ['label' => 'date',
+                    'widget' => 'single_text',
+                    'format' => 'yyyy-MM-dd',])
                   ->add('Envoyer', SubmitType::class, ['attr' => ['label' => 'Envoyer']])
         ;
     }
