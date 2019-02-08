@@ -16,9 +16,9 @@
                 <li>Auteur : {{ livre.auteur }}</li>
                 <li>Date : {{ livre.dateParution|date('d/m/Y') }}</li>
                 <li>Status :
-                {% if livre.status == 0 %} {{"indisponible"}}
+                {% if livre.status == 0 %} {{"Indisponible"}}
                 {% else %}
-                {{"disponible"}}
+                {{"Disponible"}}
                 {% endif %}</li>
                 <li>Category : {{ livre.category.name }}</li>
               </ul>
@@ -26,5 +26,5 @@
           </div>
       </div>
     {% endfor %}
-  <a href="{{ path('app_addLivre')}}" class="btn btn-primary my-5">Ajouter !</a>
+    <a href="{{ path('app_addLivre')}}" class="btn btn-primary ml-5 mb-5">Ajouter !</a>
   {% endblock %}
