@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Livre;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -23,15 +24,19 @@ class LivreRepository extends ServiceEntityRepository
     //  * @return Livre[] Returns an array of Livre objects
     //  */
 
-    public function getCategorywithLivre() {
+    public function getCategorywithLivre(Category $category) {
 
         return $this->createQueryBuilder('l')
             ->addSelect('c')
             ->leftJoin('l.category', 'c')
+            ->andWhere('c.id = :val')
+            ->setParameter('val', $category)
             ->getQuery()
             ->getResult()
         ;
     }
+
+
     /*
     public function findOneBySomeField($value): ?Livre
     {
