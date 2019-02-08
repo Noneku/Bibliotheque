@@ -13,7 +13,7 @@
           <li>Category : {{ livre.category.name }}</li>
         </ul>
       <a href="#" class="btn bg-warning">Modifier</a>
-      <a href="{{ path('app_emprunt{{ livre.id }}') }}" class="btn bg-secondary">Emprunter</a>
+      <a href="{{ path('app_emprunt', {'id' : livre.id}) }}" class="btn bg-secondary">Emprunter</a>
     </div>
   </div>
 {% endblock %}

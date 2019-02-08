@@ -6,15 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\Livre;
 use App\Entity\Category;
 use App\Form\AddLivreType;
+use App\Form\SortByType;
 use App\Repository\CategoryRepository;
+use App\Repository\LivreRepository;
 
 
 class LivreController extends AbstractController
@@ -25,25 +23,11 @@ class LivreController extends AbstractController
    */
   public function home()
   {
-
       return $this->render('home.html.twig');
   }
 
     /**
-     * @Route("/livres", name="app_livres")
-     */
-    public function index()
-    {
-        $repository = $this->getDoctrine()->getRepository(Livre::class);
-        $livres = $repository->getCategorywithLivre();
-
-        return $this->render('livre/index.html.twig', [
-            'livres' => $livres
-        ]);
-    }
-
-    /**
-     * @Route("/livre/{id}", name="app_getLivre{id}", methods={"GET"})
+     * @Route("/livre/{id}", name="app_getLivre{id}")
      */
     public function getLivre($id)
     {
@@ -80,14 +64,36 @@ class LivreController extends AbstractController
         ]);
     }
 
+
     /**
-     * @Route("/livre/emprunt/{id}", name="app_emprunt{id}")
+     * @Route("livre/{id}/emprunt", name="app_emprunt")
      */
     public function emprunterLivre($id)
     {
 
         return $this->render('livre/emprunterLivre.html.twig', [
           'id' => $id
+        ]);
+    }
+
+    /**
+    * @Route("/livres", name="livre_index", methods={"GET","POST"})
+    */
+    public function trieLivre(LivreRepository $LivreRepository, Request $request): Response
+   {
+       $form = $this->createForm(SortByType::class);
+       $form->handleRequest($request);
+
+       if ($form->isSubmitted() && $form->isValid()) {
+         $trieCategorie = $form->getData();
+         $livres = $LivreRepository->getCategorywithLivre($trieCategorie['name']);
+        }
+       else {
+         $livres = $LivreRepository->findAll();
+       }
+       return $this->render('livre/index.html.twig', [
+           'livres' => $livres,
+           'form' => $form->createView()
         ]);
 
     }
