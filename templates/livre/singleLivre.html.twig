@@ -12,7 +12,8 @@
           <li>Status : {{ livre.status }}</li>
           <li>Category : {{ livre.category.name }}</li>
         </ul>
-      <a href="#" class="btn btn-primary">Ajouter au panier</a>
+      <a href="#" class="btn bg-warning">Modifier</a>
+      <a href="{{ path('app_emprunt{{ livre.id }}') }}" class="btn bg-secondary">Emprunter</a>
     </div>
   </div>
 {% endblock %}

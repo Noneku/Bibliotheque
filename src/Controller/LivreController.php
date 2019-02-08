@@ -43,7 +43,7 @@ class LivreController extends AbstractController
     }
 
     /**
-     * @Route("/livre/{id}", name="app_getLivre{id}")
+     * @Route("/livre/{id}", name="app_getLivre{id}", methods={"GET"})
      */
     public function getLivre($id)
     {
@@ -75,8 +75,20 @@ class LivreController extends AbstractController
         return $this->redirectToRoute('livre');
       }
       //Sinon on crée une vue pour afficher le form//
-        return $this->render('livre/addLivre.html.twig', [ 
+        return $this->render('livre/addLivre.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/livre/emprunt/{id}", name="app_emprunt{id}")
+     */
+    public function emprunterLivre($id)
+    {
+
+        return $this->render('livre/emprunterLivre.html.twig', [
+          'id' => $id
+        ]);
+
     }
 }
