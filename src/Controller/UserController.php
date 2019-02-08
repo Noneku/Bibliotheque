@@ -8,12 +8,12 @@ use App\Entity\Emprunteur;
 class UserController extends AbstractController
 {
     /**
-     * @Route("/emprunteurs", name="app_emprunteur")
+     * @Route("/emprunteurs", name="app_emprunteurs")
      */
     public function getEmprunteurs()
     {
         $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
-        $emprunteurs = $repository->findAll();   
+        $emprunteurs = $repository->findAll();
         return $this->render('emprunteur/index.html.twig', [
             'emprunteurs' => $emprunteurs
         ]);
@@ -24,9 +24,9 @@ class UserController extends AbstractController
      */
 
     public function getEmprunteur($id)
-    {   
+    {
         $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
-        $emprunteur = $repository->findOneBy(array('id' => $id));   
+        $emprunteur = $repository->findOneBy(array('id' => $id));
         return $this->render('emprunteur/singleUser.html.twig', [
             'id' => $id, 'emprunteur' => $emprunteur
         ]);

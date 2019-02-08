@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+  <head>
+      <meta charset="UTF-8">
+      <title>{% block title %}Welcome!{% endblock %}</title>
+      {% block stylesheets %}<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">{% endblock %}
+  </head>
+<!--~~~~~~~~~~~~~~~~~~~~~~~ START BODY~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <body>
+    {% block body %} {% endblock %}
+  <!--~~~~~~~~~~~~~~~~~~~~~~~START HEADER~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      {% block header %}
+      <div class="jumbotron jumbotron-fluid bg-primary text-center">
+        <div class="container">
+          <h1 class="display-4">Bibliotheque </h1>
+          <p class="lead">Bienvenu chez nous :)</p>
+        </div>
+      </div>
+      {% endblock %}
+  <!--~~~~~~~~~~~~~~~~~~~~~~~START HEADER~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  <main>
+    {% block aside %} {% endblock %}
+  </main>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~START FOOTER~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+      {% block footer %}
+      <div class="jumbotron jumbotron-fluid bg-primary text-center">
+        <div class="container">
+          <p class="lead">Bonne visite !</p>
+        </div>
+      </div>
+      {% endblock %}
+  <!--~~~~~~~~~~~~~~~~~~~~~~~END FOOTER~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+  {% block javascripts %}{% endblock %}
+  </body>
+  <!--~~~~~~~~~~~~~~~~~~~~~~~ END BODY~~~~~~~~~~~~~~~~~~~~~~~~~~-->
 </html>
