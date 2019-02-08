@@ -21,9 +21,6 @@ class AddLivreType extends AbstractType
                   ->add('auteur', TextType::class, ['label' => 'Auteur'])
                   ->add('resume', TextareaType::class, ['label' => 'Resumé'])
                   ->add('status', ChoiceType::class, ['choices' => ['En stock' => 1 , 'Pas en stock' => 0]])
-                  ->add('category', EntityType::class, ['class' => Livre::class,
-                  'choice_label' => 'category'
-                  ])
                   ->add('Envoyer', SubmitType::class, ['attr' => ['label' => 'Envoyer']])
         ;
     }

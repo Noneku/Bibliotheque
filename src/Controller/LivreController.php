@@ -58,7 +58,7 @@ class LivreController extends AbstractController
     /**
      * @Route("/ajout/livre", name="app_addLivre")
      */
-    public function addLivre(Request $request): Reponse
+    public function addLivre(Request $request): Response
     {
 
       $livre = new Livre();
@@ -70,7 +70,7 @@ class LivreController extends AbstractController
         $livre = $this->getDoctrine()->getManager();
         $livre->persist($livre);
         $livre->flush();
-        return $this->redirectToRoute('livre/index.html.twig');
+        return $this->redirectToRoute('livre');
       }
         return $this->render('livre/singleLivre.html.twig', [
             'livre' => $livre, 'form' => $form->createview(),
