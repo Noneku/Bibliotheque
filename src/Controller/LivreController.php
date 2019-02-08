@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Reponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -60,20 +60,23 @@ class LivreController extends AbstractController
      */
     public function addLivre(Request $request): Response
     {
-
+      //On instance l'objet//
       $livre = new Livre();
+      //On crée le form et on fait passer le nom du form::class pour qu'il hydrate l'objet qu'on a instancié avant//
       $form = $this->createForm(AddLivreType::class, $livre);
       $form->handleRequest($request);
 
+      //Vérification du formulaire (rempli + validation)//
       if ($form->isSubmitted() && $form->isValid())
      {
-        $livre = $this->getDoctrine()->getManager();
-        $livre->persist($livre);
-        $livre->flush();
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livre);
+        $entityManager->flush();
         return $this->redirectToRoute('livre');
       }
-        return $this->render('livre/singleLivre.html.twig', [
-            'livre' => $livre, 'form' => $form->createview(),
+      //Sinon on crée une vue pour afficher le form//
+        return $this->render('livre/addLivre.html.twig', [ 
+            'form' => $form->createView()
         ]);
     }
 }

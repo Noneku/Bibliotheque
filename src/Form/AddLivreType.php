@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+
 use App\Entity\Livre; 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -10,7 +11,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
+use App\Entity\Category; 
 
 class AddLivreType extends AbstractType
 {
@@ -21,6 +25,10 @@ class AddLivreType extends AbstractType
                   ->add('auteur', TextType::class, ['label' => 'Auteur'])
                   ->add('resume', TextareaType::class, ['label' => 'Resumé'])
                   ->add('status', ChoiceType::class, ['choices' => ['En stock' => 1 , 'Pas en stock' => 0]])
+                  ->add('category', EntityType::class, [
+                    'class' => Category::class,                
+                    'choice_label' => 'name'])
+                  ->add('date_parution', DateType::class, ['label' => 'date'])
                   ->add('Envoyer', SubmitType::class, ['attr' => ['label' => 'Envoyer']])
         ;
     }
