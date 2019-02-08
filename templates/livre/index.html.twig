@@ -9,11 +9,16 @@
               <ul class="card-text">
                 <li>Auteur : {{ livre.auteur }}</li>
                 <li>Date : {{ livre.dateParution|date('d/m/Y') }}</li>
-                <li>Status : {{ livre.status }}</li>
+                <li>Status :
+                {% if livre.status == 0 %} {{"indisponible"}}
+                {% else %}
+                {{"disponible"}}
+                {% endif %}</li>
                 <li>Category : {{ livre.category.name }}</li>
               </ul>
               <a href="livre/{{livre.id}}" class="btn btn-primary d-flex flex-row justify-content-center">Voir détails</a>
           </div>
       </div>
     {% endfor %}
+  <a href="{{ path('app_addLivre')}}" class="btn btn-primary">Ajouter !</a>
   {% endblock %}
