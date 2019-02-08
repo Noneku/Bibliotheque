@@ -4,14 +4,18 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Reponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\Livre;
 use App\Entity\Category;
+use App\Form\AddLivreType;
+use App\Repository\CategoryRepository;
+
 
 class LivreController extends AbstractController
 {
@@ -44,21 +48,21 @@ class LivreController extends AbstractController
     /**
      * @Route("/ajout/livre", name="app_addLivre")
      */
-    public function formAdd()
+    public function addLivre(Request $request): Reponse
     {
       $livre = new Livre();
+      $form = $this->createForm(AddLivreType::class, $livre);
+      $form->handleRequest($request);
 
-      $form = $this->createFormBuilder($livre)
-                  ->add('titre', TextType::class, ['label' => 'Titre'])
-                  ->add('auteur', TextType::class, ['label' => 'Auteur'])
-                  ->add('resume', TextareaType::class, ['label' => 'Resumé'])
-                  ->add('status', ChoiceType::class, ['choices' => ['En stock' => 1 , 'Pas en stock' => 0]])
-                  ->add('category', EntityType::class, ['class' => Category::class,])
-                  ->add('Envoyer', SubmitType::class, ['attr' => ['label' => 'Envoyer']])
-                  ->getForm();
-
-        return $this->render('livre/addLivre.html.twig', [
-          'form' => $form->createView(),
+      if ($form->isSubmitted() && $form->isValid())
+     {
+        $livre = $this->getDoctrine()->getManager();
+        $livre->persist($livre);
+        $livre->flush();
+        return $this->redirectToRoute('livre/index.html.twig');
+      }
+        return $this->render('livre/singleLivre.html.twig', [
+            'livre' => $livre, 'form' => $form->createview(),
         ]);
     }
 }
