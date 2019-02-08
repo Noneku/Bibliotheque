@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,7 +43,6 @@ class Livre
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Emprunteur", inversedBy="livres")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $emprunteur;
 
