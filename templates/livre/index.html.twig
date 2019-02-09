@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Nos ouvrages{% endblock %}
+  {% form_theme form 'bootstrap_4_layout.html.twig' %}
   {% block aside %}
   <div class="container w-25 ml-5">
   {{ form_start(form) }}
