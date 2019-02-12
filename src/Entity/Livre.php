@@ -120,6 +120,12 @@ class Livre
     public function setEmprunteur(?Emprunteur $emprunteur): self
     {
         $this->emprunteur = $emprunteur;
+        if ($emprunteur) {
+            $this->setStatus(0);
+        }
+        else {
+            $this->setStatus(1);
+        }
         return $this;
     }
 
