@@ -37,23 +37,23 @@ class LivreController extends AbstractController
         if(!$livre) {
           throw $this->createNotFoundException("Ce livre n'existe pas");
         }
-        $form = $this->createForm(Emprunteur::class);
-        $form->handleRequest($request);
+        // $form = $this->createForm(Emprunteur::class);
+        // $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-          $data = $form->getData();
-          $user = $this->getDoctrine()->getRepository(Emprunteur::class)->findOneBy(["code" => $data["code"]]);
-          if(!$user) {
-            $this->addFlash("danger", "Ce code utilisateur n'est pas valide");
-          }
-          else {
-            $livre->setBorrower($user);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($livre);
-            $entityManager->flush();
-            $this->addFlash("success", "Le livre a été emprunté");
-          }
-        }
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //   $data = $form->getData();
+        //   $user = $this->getDoctrine()->getRepository(Emprunteur::class)->findOneBy(["code" => $data["code"]]);
+        //   if(!$user) {
+        //     $this->addFlash("danger", "Ce code utilisateur n'est pas valide");
+        //   }
+        //   else {
+        //     $livre->setBorrower($user);
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager->persist($livre);
+        //     $entityManager->flush();
+        //     $this->addFlash("success", "Le livre a été emprunté");
+        //   }
+        // }
         return $this->render('livre/singleLivre.html.twig', [
             'id' => $id, 'livre' => $livre
         ]);
