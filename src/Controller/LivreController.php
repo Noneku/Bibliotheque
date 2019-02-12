@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\Livre;
 use App\Entity\Category;
+use App\Entity\Emprunteur;
 use App\Form\AddLivreType;
 use App\Form\SortByType;
 use App\Repository\CategoryRepository;
@@ -33,7 +34,26 @@ class LivreController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Livre::class);
         $livre = $repository->findOneBy(array('id' => $id));
+        if(!$livre) {
+          throw $this->createNotFoundException("Ce livre n'existe pas");
+        }
+        // $form = $this->createForm(Emprunteur::class);
+        // $form->handleRequest($request);
 
+        // if ($form->isSubmitted() && $form->isValid()) {
+        //   $data = $form->getData();
+        //   $user = $this->getDoctrine()->getRepository(Emprunteur::class)->findOneBy(["code" => $data["code"]]);
+        //   if(!$user) {
+        //     $this->addFlash("danger", "Ce code utilisateur n'est pas valide");
+        //   }
+        //   else {
+        //     $livre->setBorrower($user);
+        //     $entityManager = $this->getDoctrine()->getManager();
+        //     $entityManager->persist($livre);
+        //     $entityManager->flush();
+        //     $this->addFlash("success", "Le livre a été emprunté");
+        //   }
+        // }
         return $this->render('livre/singleLivre.html.twig', [
             'id' => $id, 'livre' => $livre
         ]);

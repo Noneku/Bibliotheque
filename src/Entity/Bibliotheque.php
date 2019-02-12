@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,9 +44,14 @@ class Bibliotheque
     private $numeroTel;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Livre", inversedBy="bibliotheques")
+     * @ORM\OneToMany(targetEntity="App\Entity\Livre", mappedBy="bibliotheque")
      */
     private $livres;
+
+    public function __construct()
+    {
+        $this->livres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -111,15 +118,35 @@ class Bibliotheque
         return $this;
     }
 
-    public function getLivres(): ?Livre
+    /**
+     * @return Collection|Livre[]
+     */
+    public function getLivres(): Collection
     {
         return $this->livres;
     }
 
-    public function setLivres(?Livre $livres): self
+    public function addLivre(Livre $livre): self
     {
-        $this->livres = $livres;
+        if (!$this->livres->contains($livre)) {
+            $this->livres[] = $livre;
+            $livre->setBibliotheque($this);
+        }
 
         return $this;
     }
+
+    public function removeLivre(Livre $livre): self
+    {
+        if ($this->livres->contains($livre)) {
+            $this->livres->removeElement($livre);
+            // set the owning side to null (unless already changed)
+            if ($livre->getBibliotheque() === $this) {
+                $livre->setBibliotheque(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

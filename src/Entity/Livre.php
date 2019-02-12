@@ -55,14 +55,9 @@ class Livre
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Bibliotheque", mappedBy="livres")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Bibliotheque", inversedBy="livres")
      */
-    private $bibliotheques;
-
-    public function __construct()
-    {
-        $this->bibliotheques = new ArrayCollection();
-    }
+    private $bibliotheque;
 
     public function getId(): ?int
     {
@@ -132,6 +127,12 @@ class Livre
     public function setEmprunteur(?Emprunteur $emprunteur): self
     {
         $this->emprunteur = $emprunteur;
+        if ($emprunteur) {
+            $this->setStatus(0);
+        }
+        else {
+            $this->setStatus(1);
+        }
         return $this;
     }
 
@@ -146,33 +147,14 @@ class Livre
         return $this;
     }
 
-    /**
-     * @return Collection|Bibliotheque[]
-     */
-    public function getBibliotheques(): Collection
+    public function getBibliotheque(): ?Bibliotheque
     {
-        return $this->bibliotheques;
+        return $this->bibliotheque;
     }
 
-    public function addBibliotheque(Bibliotheque $bibliotheque): self
+    public function setBibliotheque(?Bibliotheque $bibliotheque): self
     {
-        if (!$this->bibliotheques->contains($bibliotheque)) {
-            $this->bibliotheques[] = $bibliotheque;
-            $bibliotheque->setLivres($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBibliotheque(Bibliotheque $bibliotheque): self
-    {
-        if ($this->bibliotheques->contains($bibliotheque)) {
-            $this->bibliotheques->removeElement($bibliotheque);
-            // set the owning side to null (unless already changed)
-            if ($bibliotheque->getLivres() === $this) {
-                $bibliotheque->setLivres(null);
-            }
-        }
+        $this->bibliotheque = $bibliotheque;
 
         return $this;
     }
