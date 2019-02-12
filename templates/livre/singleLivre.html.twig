@@ -9,7 +9,11 @@
           <li>Auteur : {{ livre.auteur }}</li>
           <li>Resumé : {{ livre.resume }}</li>
           <li>Date : {{ livre.dateParution|date('d/m/Y') }}</li>
-          <li>Status : {{ livre.status }}</li>
+          <li>Status :
+          {% if livre.status == 0 %} {{"Indisponible"}}
+          {% else %}
+          {{"Disponible"}}
+          {% endif %}</li>
           <li>Category : {{ livre.category.name }}</li>
         </ul>
       <a href="#" class="btn bg-warning">Modifier</a>

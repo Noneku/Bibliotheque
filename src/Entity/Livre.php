@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,16 @@ class Livre
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Bibliotheque", mappedBy="livres")
+     */
+    private $bibliotheques;
+
+    public function __construct()
+    {
+        $this->bibliotheques = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +149,37 @@ class Livre
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return Collection|Bibliotheque[]
+     */
+    public function getBibliotheques(): Collection
+    {
+        return $this->bibliotheques;
+    }
+
+    public function addBibliotheque(Bibliotheque $bibliotheque): self
+    {
+        if (!$this->bibliotheques->contains($bibliotheque)) {
+            $this->bibliotheques[] = $bibliotheque;
+            $bibliotheque->setLivres($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBibliotheque(Bibliotheque $bibliotheque): self
+    {
+        if ($this->bibliotheques->contains($bibliotheque)) {
+            $this->bibliotheques->removeElement($bibliotheque);
+            // set the owning side to null (unless already changed)
+            if ($bibliotheque->getLivres() === $this) {
+                $bibliotheque->setLivres(null);
+            }
+        }
+
         return $this;
     }
 
