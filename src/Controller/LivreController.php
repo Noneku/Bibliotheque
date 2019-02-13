@@ -14,6 +14,7 @@ use App\Form\AddLivreType;
 use App\Form\SortByType;
 use App\Repository\CategoryRepository;
 use App\Repository\LivreRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 
 class LivreController extends AbstractController
@@ -61,6 +62,7 @@ class LivreController extends AbstractController
 
     /**
      * @Route("/ajout/livre", name="app_addLivre")
+     * @IsGranted("ROLE_BIBLIOTHECAIRE")
      */
     public function addLivre(Request $request): Response
     {
@@ -105,8 +107,9 @@ class LivreController extends AbstractController
        $form->handleRequest($request);
 
        if ($form->isSubmitted() && $form->isValid()) {
-         $trieCategorie = $form->getData();
-         $livres = $LivreRepository->getCategorywithLivre($trieCategorie['name']);
+         $trieCategorie = $form->getData()['name'];
+         $livres = $LivreRepository->getCategorywithLivre($trieCategorie);
+         var_dump($trieCategorie);
         }
        else {
          $livres = $LivreRepository->findAll();
