@@ -48,9 +48,15 @@ class Bibliotheque
      */
     private $livres;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="bibliotheque")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->livres = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -143,6 +149,37 @@ class Bibliotheque
             // set the owning side to null (unless already changed)
             if ($livre->getBibliotheque() === $this) {
                 $livre->setBibliotheque(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setBibliotheque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getBibliotheque() === $this) {
+                $user->setBibliotheque(null);
             }
         }
 
