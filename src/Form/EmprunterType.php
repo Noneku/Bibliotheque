@@ -22,7 +22,6 @@ class EmprunterType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Livre::class,
         ]);
     }
 }

@@ -93,19 +93,35 @@ class LivreController extends AbstractController
      */
     public function emprunterLivre($id, Request $request):Response
     {
-        $livre = new Livre();
-        // $form = $this->createForm(EmprunterType::class, $livre);
-        // $form->handleRequest($request);
+        //Création du formulaire
+        $form = $this->createForm(EmprunterType::class);
+        //Permet de récuperer les informations du formulaire lors de la soumission
+        $form->handleRequest($request);
 
-       //  if ($form->isSubmitted() && $form->isValid())
-       // {
+        //Vérification
+        if ($form->isSubmitted() && $form->isValid())
+        {
+          //Je récupère les données de mon formulaire avec le getData
+          $data = $form->getData();
+          //J'instancie le Repo avec Doctrine
+          $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
+          //Je fais une recherche du numero de l'emprunteur avec celui entrée dans le formulaire
+          $emprunteur = $repository->findOneBy([ 'numero' => $data['emprunteur'] ]);
+          //J'instancie le Repo de Livre avec Doctrine afin de récuperer le livre selon l'ID
+          $livre =  $this->getDoctrine()->getRepository(Livre::class)->find($id);
+          //On verifie si l'emprunteur existe
+          if($emprunteur) {
+            //J'hydrate Livre avec un nouvelle emprunteur
+            $livre->setEmprunteur($emprunteur);
+            //J'appelle mon Manager pour l'enregistrement en BDD
+            $entityManager = $this->getDoctrine()->getManager();
+            //Je prépare la requête
+            $entityManager->persist($livre);
+            //Je l'éxecute
+            $entityManager->flush();
+          }
 
-          $emprunteur = new Emprunteur();
-          $emprunteur = $this->getDoctrine()->getRepository(Emprunteur::class);
-          $numerosEmprunteurs = $emprunteur->afficheCodeEmprunteurs();
-          dump($numerosEmprunteurs);
-
-        // }
+        }
 
         return $this->render('livre/ajoutEmprunteur.html.twig', [
           'id' => $id, 'form' => $form->createView()
