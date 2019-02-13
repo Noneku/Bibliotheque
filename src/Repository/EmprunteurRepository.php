@@ -19,6 +19,13 @@ class EmprunteurRepository extends ServiceEntityRepository
         parent::__construct($registry, Emprunteur::class);
     }
 
+    public function afficheCodeEmprunteurs(){
+      return $this->createQueryBuilder('SELECT numero FROM App\Entity\Emprunteur')
+          ->getQuery()
+          ->getResult()
+      ;
+    }
+
     // /**
     //  * @return Emprunteur[] Returns an array of Emprunteur objects
     //  */
