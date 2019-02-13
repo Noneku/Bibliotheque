@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block title %}Ajout Emprunteur{% endblock %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block aside %}
+    <div class="card my-5 mx-5" style="width: 18rem;">
+        <div class="card-body">
+          {{form_start(form)}}
+          {{form_end(form)}}
+        </div>
+    </div>
+{% endblock %}

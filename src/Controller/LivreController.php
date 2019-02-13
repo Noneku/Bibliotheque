@@ -11,6 +11,7 @@ use App\Entity\Livre;
 use App\Entity\Category;
 use App\Entity\Emprunteur;
 use App\Form\AddLivreType;
+use App\Form\EmprunterType;
 use App\Form\SortByType;
 use App\Repository\CategoryRepository;
 use App\Repository\LivreRepository;
@@ -88,11 +89,24 @@ class LivreController extends AbstractController
     /**
      * @Route("livre/{id}/emprunt", name="app_emprunt")
      */
-    public function emprunterLivre($id)
+    public function emprunterLivre($id, Request $request):Response
     {
+        $livre = new Livre();
+        // $form = $this->createForm(EmprunterType::class, $livre);
+        // $form->handleRequest($request);
 
-        return $this->render('livre/emprunterLivre.html.twig', [
-          'id' => $id
+       //  if ($form->isSubmitted() && $form->isValid())
+       // {
+
+          $emprunteur = new Emprunteur();
+          $emprunteur = $this->getDoctrine()->getRepository(Emprunteur::class);
+          $numerosEmprunteurs = $emprunteur->afficheCodeEmprunteurs();
+          dump($numerosEmprunteurs);
+
+        // }
+
+        return $this->render('livre/ajoutEmprunteur.html.twig', [
+          'id' => $id, 'form' => $form->createView()
         ]);
     }
 

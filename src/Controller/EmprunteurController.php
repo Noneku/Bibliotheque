@@ -5,7 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Emprunteur;
-class UserController extends AbstractController
+class EmprunteurController extends AbstractController
 {
     /**
      * @Route("/emprunteurs", name="app_emprunteurs")
@@ -31,4 +31,5 @@ class UserController extends AbstractController
             'id' => $id, 'emprunteur' => $emprunteur
         ]);
     }
+
 }
