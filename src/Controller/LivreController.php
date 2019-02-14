@@ -142,33 +142,34 @@ class LivreController extends AbstractController
     /**
     * @Route("/livres", name="livre_index", methods={"GET","POST"})
     */
-    public function trieLivre(LivreRepository $LivreRepository, Request $request, SessionInterface $session): Response
+
+    public function livres(LivreRepository $LivreRepository, Request $request): Response
    {
+      $bibliotheque = $this->getUser()->getBibliotheque();
+      dump($bibliotheque);
+      $trieCategorie = null;
+
       //Formulaire Trie
-       $session = new Session();
-       $user = $this->getUser();
-       dump($user);   
        $form = $this->createForm(SortByType::class);
        $form->handleRequest($request);
-
-
        if ($form->isSubmitted() && $form->isValid()) {
-         $trieCategorie = $form->getData()['name'];
-         $livres = $LivreRepository->getCategorywithLivre($trieCategorie);
-        }
-       else {
-         $livres = $LivreRepository->findAll();
+        $trieCategorie = $form->getData()['Genre'];
        }
-
+       $livres = $this->getDoctrine()->getRepository(Livre::class)->getCategorywithLivre($trieCategorie, $bibliotheque);
         //Formulaire de Recherche
 
-        $form2 = $this->createForm(SortByTitleType::class);
-        $form2->handleRequest($request);
+        $formTitle = $this->createForm(SortByTitleType::class);
+        $formTitle->handleRequest($request);
 
+        if ($formTitle->isSubmitted() && $formTitle->isValid()) {
+
+          $data = $formTitle->getData()['Titre'];
+          $livres = $LivreRepository->findBy(['titre' => $data]);
+         }
         return $this->render('livre/index.html.twig', [
             'livres' => $livres,
             'form' => $form->createView(),
-            'form2' => $form2->createView()
+            'formTitle' => $formTitle->createView()
          ]);
 
     }
