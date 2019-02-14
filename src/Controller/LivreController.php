@@ -30,7 +30,7 @@ class LivreController extends AbstractController
   }
 
     /**
-     * @Route("/livre/{id}", name="app_getLivre{id}")
+     * @Route("/livre/{id}", name="app_getLivre")
      */
     public function getLivre($id)
     {
@@ -119,6 +119,8 @@ class LivreController extends AbstractController
             $entityManager->persist($livre);
             //Je l'éxecute
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_getLivre', ['id' => $id]);
           }
 
         }
@@ -127,6 +129,27 @@ class LivreController extends AbstractController
           'id' => $id, 'form' => $form->createView()
         ]);
     }
+
+    /**
+    * @Route("livre/{id}/rendre", name="app_rendre")
+    */
+
+    public function rendreLivre($id){
+
+      $livre =  $this->getDoctrine()->getRepository(Livre::class)->find($id);
+
+      if($livre->setStatus(0)) {
+
+        $livre->setEmprunteur(null);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livre);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_getLivre', ['id' => $id]);
+      }
+
+    }
+
 
     /**
     * @Route("/livres", name="livre_index", methods={"GET","POST"})
@@ -139,7 +162,6 @@ class LivreController extends AbstractController
        if ($form->isSubmitted() && $form->isValid()) {
          $trieCategorie = $form->getData()['name'];
          $livres = $LivreRepository->getCategorywithLivre($trieCategorie);
-         var_dump($trieCategorie);
         }
        else {
          $livres = $LivreRepository->findAll();
