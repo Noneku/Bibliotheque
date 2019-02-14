@@ -2,13 +2,17 @@
 
 {% block title %}Nos ouvrages{% endblock %}
   {% form_theme form 'bootstrap_4_layout.html.twig' %}
+  {% form_theme form2 'bootstrap_4_layout.html.twig' %}
   {% block aside %}
   <div class="container w-25 ml-5">
-  {{ form_start(form) }}
-
-  {{ form_end(form) }}
+    {{ form_start(form) }}
+    {{ form_end(form) }}
   </div>
-  
+  <div class="container w-25 ml-5">
+    {{ form_start(form2) }}
+    {{ form_end(form2) }}
+  </div>
+
     {% for livre in livres %}
       <div class="card my-5 mx-5 d-flex flex-row justify-content-center align-items-center flex-wrap" style="width: 18rem;">
           <div class="card-body">
