@@ -140,10 +140,12 @@ class LivreController extends AbstractController
     */
     public function trieLivre(LivreRepository $LivreRepository, Request $request): Response
    {
+       
       //Formulaire Trie
-
+       
        $form = $this->createForm(SortByType::class);
        $form->handleRequest($request);
+
 
        if ($form->isSubmitted() && $form->isValid()) {
          $trieCategorie = $form->getData()['name'];
