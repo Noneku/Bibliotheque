@@ -17,6 +17,10 @@ use App\Form\SortByTitleType;
 use App\Repository\CategoryRepository;
 use App\Repository\LivreRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+
 
 
 class LivreController extends AbstractController
@@ -138,20 +142,20 @@ class LivreController extends AbstractController
     /**
     * @Route("/livres", name="livre_index", methods={"GET","POST"})
     */
+
     public function livres(LivreRepository $LivreRepository, Request $request): Response
    {
-      $livres = $LivreRepository->findAll();
+      $bibliotheque = $this->getUser()->getBibliotheque();
+      dump($bibliotheque);
+      $trieCategorie = null;
 
       //Formulaire Trie
-
        $form = $this->createForm(SortByType::class);
        $form->handleRequest($request);
-
-
        if ($form->isSubmitted() && $form->isValid()) {
-         $trieCategorie = $form->getData()['Genre'];
-         $livres = $LivreRepository->getCategorywithLivre($trieCategorie);
-        }
+        $trieCategorie = $form->getData()['Genre'];
+       }
+       $livres = $this->getDoctrine()->getRepository(Livre::class)->getCategorywithLivre($trieCategorie, $bibliotheque);
         //Formulaire de Recherche
 
         $formTitle = $this->createForm(SortByTitleType::class);
@@ -162,7 +166,6 @@ class LivreController extends AbstractController
           $data = $formTitle->getData()['Titre'];
           $livres = $LivreRepository->findBy(['titre' => $data]);
          }
-
         return $this->render('livre/index.html.twig', [
             'livres' => $livres,
             'form' => $form->createView(),
