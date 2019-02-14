@@ -17,6 +17,10 @@ use App\Form\SortByTitleType;
 use App\Repository\CategoryRepository;
 use App\Repository\LivreRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
+
+
 
 
 class LivreController extends AbstractController
@@ -138,11 +142,12 @@ class LivreController extends AbstractController
     /**
     * @Route("/livres", name="livre_index", methods={"GET","POST"})
     */
-    public function trieLivre(LivreRepository $LivreRepository, Request $request): Response
+    public function trieLivre(LivreRepository $LivreRepository, Request $request, SessionInterface $session): Response
    {
-       
       //Formulaire Trie
-       
+       $session = new Session();
+       $user = $this->getUser();
+       dump($user);   
        $form = $this->createForm(SortByType::class);
        $form->handleRequest($request);
 

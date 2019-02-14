@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Livre;
 use App\Entity\Category;
+use App\Entity\Bibliotheque;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -31,6 +32,10 @@ class LivreRepository extends ServiceEntityRepository
             ->leftJoin('l.category', 'c')
             ->andWhere('c.id = :val')
             ->setParameter('val', $category)
+            ->addSelect('b')
+            ->leftJoin('l.bibliotheque', 'b')
+            ->andWhere('b.id = :val')
+            ->setParameter('val', $bibliotheque)
             ->getQuery()
             ->getResult()
         ;
