@@ -138,32 +138,35 @@ class LivreController extends AbstractController
     /**
     * @Route("/livres", name="livre_index", methods={"GET","POST"})
     */
-    public function trieLivre(LivreRepository $LivreRepository, Request $request): Response
+    public function livres(LivreRepository $LivreRepository, Request $request): Response
    {
-       
+      $livres = $LivreRepository->findAll();
+
       //Formulaire Trie
-       
+
        $form = $this->createForm(SortByType::class);
        $form->handleRequest($request);
 
 
        if ($form->isSubmitted() && $form->isValid()) {
-         $trieCategorie = $form->getData()['name'];
+         $trieCategorie = $form->getData()['Genre'];
          $livres = $LivreRepository->getCategorywithLivre($trieCategorie);
         }
-       else {
-         $livres = $LivreRepository->findAll();
-       }
-
         //Formulaire de Recherche
 
-        $form2 = $this->createForm(SortByTitleType::class);
-        $form2->handleRequest($request);
+        $formTitle = $this->createForm(SortByTitleType::class);
+        $formTitle->handleRequest($request);
+
+        if ($formTitle->isSubmitted() && $formTitle->isValid()) {
+
+          $data = $formTitle->getData()['Titre'];
+          $livres = $LivreRepository->findBy(['titre' => $data]);
+         }
 
         return $this->render('livre/index.html.twig', [
             'livres' => $livres,
             'form' => $form->createView(),
-            'form2' => $form2->createView()
+            'formTitle' => $formTitle->createView()
          ]);
 
     }
