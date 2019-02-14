@@ -2,6 +2,19 @@
 {% block title %}Hello LivreController!{% endblock %}
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 {% block aside %}
+<div class="">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a href="{{ path('livre')}}" class = "nav-link">Accueil</a>
+    </li>
+    <li class="nav-item">
+      <a href="/livres" class="nav-link">Afficher tous les livres</a>
+    </li>
+    <li class="nav-item">
+      <a href="{{ path('app_addLivre')}}" class="nav-link active">Ajouter un livre</a>
+    </li>
+  </ul>
+</div>
     <div class="card my-5 mx-5" style="width: 18rem;">
         <div class="card-body">
           {{form_start(form)}}
