@@ -22,9 +22,9 @@ class BibliothequeFixtures extends Fixture
             $bibliotheque->setCodePostal($faker->numberBetween(1,200));
             $bibliotheque->setNumeroRue($faker->numberBetween(1,200));
             $bibliotheque->setNumeroTel($faker->numberBetween(1,200));
-            $manager->persist($bibliotheque);
-            $manager->flush();
+            $manager->persist($bibliotheque);    
             }
-        $this->addReference('bibliotheque', $bibliotheque);    
+            $this->addReference("bibliotheque", $bibliotheque);
+            $manager->flush();
     }
 }

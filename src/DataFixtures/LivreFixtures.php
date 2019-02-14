@@ -21,8 +21,9 @@ class LivreFixtures extends Fixture
             $livre->setResume($faker->name);
             $livre->setDateParution($faker->dateTime($max = 'now', $timezone = null));
             $livre->setStatus($faker->boolean);
-            $livre->setCategory($this->getReference('category'));
-            $livre->setBibliotheque($this->getReference('bibliotheque'));
+            $random = rand(0, 9);
+            $livre->setCategory($this->getReference("category$random"));
+            $livre->setBibliotheque($this->getReference("bibliotheque"));
             $manager->persist($livre);
             }
         $manager->flush();
