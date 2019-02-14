@@ -13,6 +13,7 @@ use App\Entity\Emprunteur;
 use App\Form\AddLivreType;
 use App\Form\EmprunterType;
 use App\Form\SortByType;
+use App\Form\SortByTitleType;
 use App\Repository\CategoryRepository;
 use App\Repository\LivreRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -39,23 +40,6 @@ class LivreController extends AbstractController
         if(!$livre) {
           throw $this->createNotFoundException("Ce livre n'existe pas");
         }
-        // $form = $this->createForm(Emprunteur::class);
-        // $form->handleRequest($request);
-
-        // if ($form->isSubmitted() && $form->isValid()) {
-        //   $data = $form->getData();
-        //   $user = $this->getDoctrine()->getRepository(Emprunteur::class)->findOneBy(["code" => $data["code"]]);
-        //   if(!$user) {
-        //     $this->addFlash("danger", "Ce code utilisateur n'est pas valide");
-        //   }
-        //   else {
-        //     $livre->setBorrower($user);
-        //     $entityManager = $this->getDoctrine()->getManager();
-        //     $entityManager->persist($livre);
-        //     $entityManager->flush();
-        //     $this->addFlash("success", "Le livre a été emprunté");
-        //   }
-        // }
         return $this->render('livre/singleLivre.html.twig', [
             'id' => $id, 'livre' => $livre
         ]);
@@ -156,6 +140,8 @@ class LivreController extends AbstractController
     */
     public function trieLivre(LivreRepository $LivreRepository, Request $request): Response
    {
+      //Formulaire Trie
+
        $form = $this->createForm(SortByType::class);
        $form->handleRequest($request);
 
@@ -166,10 +152,17 @@ class LivreController extends AbstractController
        else {
          $livres = $LivreRepository->findAll();
        }
-       return $this->render('livre/index.html.twig', [
-           'livres' => $livres,
-           'form' => $form->createView()
-        ]);
+
+        //Formulaire de Recherche
+
+        $form2 = $this->createForm(SortByTitleType::class);
+        $form2->handleRequest($request);
+
+        return $this->render('livre/index.html.twig', [
+            'livres' => $livres,
+            'form' => $form->createView(),
+            'form2' => $form2->createView()
+         ]);
 
     }
 }
