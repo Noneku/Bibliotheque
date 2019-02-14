@@ -22,19 +22,17 @@ class BibliothequeRepository extends ServiceEntityRepository
     // /**
     //  * @return Bibliotheque[] Returns an array of Bibliotheque objects
     //  */
-    /*
-    public function findByExampleField($value)
-    {
+        public function getBibliothequeWithUser(Bibliotheque $bibliotheque) {
+
         return $this->createQueryBuilder('b')
-            ->andWhere('b.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('b.id', 'ASC')
-            ->setMaxResults(10)
+            ->addSelect('u')
+            ->leftJoin('b.id', 'u')
+            ->andWhere('b.id = u.id')
+            ->setParameter('val', $category)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Bibliotheque
