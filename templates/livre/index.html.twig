@@ -1,35 +1,54 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme formTitle 'bootstrap_4_layout.html.twig' %}
+
 {% block title %}Nos ouvrages{% endblock %}
-  {% form_theme form 'bootstrap_4_layout.html.twig' %}
-  {% form_theme formTitle 'bootstrap_4_layout.html.twig' %}
   {% block aside %}
-  <div class="container w-25 ml-5">
-    {{ form_start(form) }}
-    {{ form_end(form) }}
+  <div class="">
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a href="{{ path('livre')}}" class = "nav-link">Accueil</a>
+      </li>
+      <li class="nav-item">
+        <a href="/livres" class="nav-link active">Afficher tous les livres</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ path('app_addLivre')}}" class="nav-link">Ajouter un livre</a>
+      </li>
+    </ul>
   </div>
-  <div class="container w-25 ml-5">
-    {{ form_start(formTitle) }}
-    {{ form_end(formTitle) }}
+  <div class="container d-flex flex-row justify-content-between align-items-center mt-1">
+    <div class="container d-flex flex-column justify-content-center">
+      <div class="container">
+        {{ form_start(form) }}
+        {{ form_end(form) }}
+      </div>
+      <div class="container">
+        {{ form_start(formTitle) }}
+        {{ form_end(formTitle) }}
+      </div>
+    </div>
   </div>
 
+  <div class="container-fluid d-flex flex-row justify-content-between flex-wrap align-items-center">
     {% for livre in livres %}
-      <div class="card my-5 mx-5 d-flex flex-row justify-content-center align-items-center flex-wrap" style="width: 18rem;">
-          <div class="card-body">
-              <h5 class="card-title text-center">{{livre.titre}}</h5>
-              <ul class="card-text">
-                <li>Auteur : {{ livre.auteur }}</li>
-                <li>Date : {{ livre.dateParution|date('d/m/Y') }}</li>
-                <li>Status :
-                {% if livre.status == 0 %} {{"Indisponible"}}
-                {% else %}
-                {{"Disponible"}}
-                {% endif %}</li>
-                <li>Category : {{ livre.category.name }}</li>
-              </ul>
-              <a href="livre/{{livre.id}}" class="btn btn-primary d-flex flex-row justify-content-center">Voir détails</a>
-          </div>
+    <div class="card my-5 mx-5 d-flex flex-row justify-content-center align-items-center flex-wrap" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title text-center">{{livre.titre}}</h5>
+        <ul class="card-text">
+          <li>Auteur : {{ livre.auteur }}</li>
+          <li>Date : {{ livre.dateParution|date('d/m/Y') }}</li>
+          <li>Status :
+            {% if livre.status == 0 %} {{"Indisponible"}}
+            {% else %}
+            {{"Disponible"}}
+            {% endif %}</li>
+            <li>Category : {{ livre.category.name }}</li>
+          </ul>
+          <a href="livre/{{livre.id}}" class="btn btn-primary d-flex flex-row justify-content-center">Voir détails</a>
+        </div>
       </div>
-    {% endfor %}
-    <a href="{{ path('app_addLivre')}}" class="btn btn-primary ml-5 mb-5">Ajouter !</a>
+      {% endfor %}
+    </div>
   {% endblock %}
