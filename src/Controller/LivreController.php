@@ -30,7 +30,7 @@ class LivreController extends AbstractController
   }
 
     /**
-     * @Route("/livre/{id}", name="app_getLivre{id}")
+     * @Route("/livre/{id}", name="app_getLivre")
      */
     public function getLivre($id)
     {
@@ -119,6 +119,8 @@ class LivreController extends AbstractController
             $entityManager->persist($livre);
             //Je l'éxecute
             $entityManager->flush();
+
+            return $this->redirectToRoute('app_getLivre', ['id' => $id]);
           }
 
         }
@@ -136,7 +138,16 @@ class LivreController extends AbstractController
 
       $livre =  $this->getDoctrine()->getRepository(Livre::class)->find($id);
 
-      return new Response($id);
+      if($livre->setStatus(0)) {
+
+        $livre->setEmprunteur(null);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($livre);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_getLivre', ['id' => $id]);
+      }
+
     }
 
 
