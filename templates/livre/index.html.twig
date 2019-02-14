@@ -2,15 +2,15 @@
 
 {% block title %}Nos ouvrages{% endblock %}
   {% form_theme form 'bootstrap_4_layout.html.twig' %}
-  {% form_theme form2 'bootstrap_4_layout.html.twig' %}
+  {% form_theme formTitle 'bootstrap_4_layout.html.twig' %}
   {% block aside %}
   <div class="container w-25 ml-5">
     {{ form_start(form) }}
     {{ form_end(form) }}
   </div>
   <div class="container w-25 ml-5">
-    {{ form_start(form2) }}
-    {{ form_end(form2) }}
+    {{ form_start(formTitle) }}
+    {{ form_end(formTitle) }}
   </div>
 
     {% for livre in livres %}
