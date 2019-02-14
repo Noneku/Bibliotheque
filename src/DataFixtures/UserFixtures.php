@@ -27,7 +27,7 @@ class UserFixtures extends Fixture
             for ($i=0; $i < 10; $i++) {
             $user = new User();     
             $user->setBibliotheque($this->getReference('bibliotheque'));
-            $user->setUsername($faker->name);
+            $user->setUsername("vincent$i");
             $user->setPassword($this->passwordEncoder->encodePassword(
             $user,
             "password$i"
