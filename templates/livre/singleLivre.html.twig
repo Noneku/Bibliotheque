@@ -16,7 +16,7 @@
           {% endif %}</li>
           <li>Category : {{ livre.category.name }}</li>
         </ul>
-      <a href="#" class="btn bg-warning">Modifier</a>
+      <a href="{{ path('app_rendre', {'id' : livre.id})}}" class="btn bg-warning">Rendre</a>
       <a href="{{ path('app_emprunt', {'id' : livre.id}) }}" class="btn bg-secondary">Emprunter</a>
     </div>
   </div>

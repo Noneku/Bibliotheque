@@ -129,6 +129,18 @@ class LivreController extends AbstractController
     }
 
     /**
+    * @Route("livre/{id}/rendre", name="app_rendre")
+    */
+
+    public function rendreLivre($id){
+
+      $livre =  $this->getDoctrine()->getRepository(Livre::class)->find($id);
+
+      return new Response($id);
+    }
+
+
+    /**
     * @Route("/livres", name="livre_index", methods={"GET","POST"})
     */
     public function trieLivre(LivreRepository $LivreRepository, Request $request): Response
@@ -139,7 +151,6 @@ class LivreController extends AbstractController
        if ($form->isSubmitted() && $form->isValid()) {
          $trieCategorie = $form->getData()['name'];
          $livres = $LivreRepository->getCategorywithLivre($trieCategorie);
-         var_dump($trieCategorie);
         }
        else {
          $livres = $LivreRepository->findAll();

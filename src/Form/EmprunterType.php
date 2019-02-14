@@ -15,7 +15,7 @@ class EmprunterType extends AbstractType
     {
         $builder
             ->add('emprunteur', TextType::class)
-            ->add('save', SubmitType::class)
+            ->add('Emprunter', SubmitType::class)
         ;
     }
 
