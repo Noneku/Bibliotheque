@@ -20,7 +20,7 @@ class CategoryFixtures extends Fixture
         $category->setName($faker->colorName);
         $manager->persist($category);
         $manager->flush();
-        }
-    $this->addReference('category', $category);    
+        $this->addReference("category$i", $category);
+        }    
     }
 }
