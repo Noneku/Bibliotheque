@@ -8,13 +8,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\FormTypeInterface;
 use App\Entity\Livre;
+use App\Entity\Bibliotheque;
 use App\Entity\Category;
+use App\Entity\User;
 use App\Entity\Emprunteur;
 use App\Form\AddLivreType;
 use App\Form\EmprunterType;
 use App\Form\SortByType;
 use App\Form\SortByTitleType;
 use App\Repository\CategoryRepository;
+use App\Repository\BibliothequeRepository;
+use App\Repository\UserRepository;
 use App\Repository\LivreRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -22,12 +26,15 @@ use Symfony\Component\HttpFoundation\Session\Session;
 
 
 
-
+/**
+ * @IsGranted("ROLE_BIBLIOTHECAIRE")
+ */
 class LivreController extends AbstractController
 {
 
   /**
-   * @Route("", name="livre")
+   * @Route("/accueil", name="accueil")
+   * 
    */
   public function home()
   {
@@ -51,7 +58,6 @@ class LivreController extends AbstractController
 
     /**
      * @Route("/ajout/livre", name="app_addLivre")
-     * @IsGranted("ROLE_BIBLIOTHECAIRE")
      */
     public function addLivre(Request $request): Response
     {
@@ -146,7 +152,6 @@ class LivreController extends AbstractController
     public function livres(LivreRepository $LivreRepository, Request $request): Response
    {
       $bibliotheque = $this->getUser()->getBibliotheque();
-      dump($bibliotheque);
       $trieCategorie = null;
 
       //Formulaire Trie
@@ -171,6 +176,20 @@ class LivreController extends AbstractController
             'form' => $form->createView(),
             'formTitle' => $formTitle->createView()
          ]);
-
     }
+
+  /**
+   * @Route("/test", name="livre")
+   */    
+    public function getBibliotechaireByBibliotheque(UserRepository $UserRepository, Bibliotheque $bibliotheque, Request $request): Response
+    {
+      
+      $user = $this->getUser();
+      // $user = $this->getDoctrine()->getRepository(User::class)->getBibliothequeWithUser($user, $bibliotheque);
+      dump($user);
+      return $this->render('base.html.twig', [
+        'user' => $user,
+        ]);
+    }
+    
 }
