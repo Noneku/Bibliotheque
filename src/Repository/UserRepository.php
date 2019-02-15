@@ -23,13 +23,11 @@ class UserRepository extends ServiceEntityRepository
     /**
      * @return User[] Returns an array of User objects
      */
-       public function getBibliothequeWithUser(User $user, Bibliotheque $bibliotheque) {
+       public function getBibliothequeWithUser(Bibliotheque $bibliotheque) {
 
         return $this->createQueryBuilder('u')
-            ->addSelect('b')
-            ->leftJoin('u.bibliotheque', 'b')
-            ->andWhere('u.bibliotheque_id = :b.id')
-            ->setParameter('b.id', $bibliotheque)
+            ->where('u.bibliotheque = :bibliotheque')
+            ->setParameter('bibliotheque', $bibliotheque)
             ->getQuery()
             ->getResult()
         ;

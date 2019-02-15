@@ -176,20 +176,5 @@ class LivreController extends AbstractController
             'form' => $form->createView(),
             'formTitle' => $formTitle->createView()
          ]);
-    }
-
-  /**
-   * @Route("/test", name="livre")
-   */    
-    public function getBibliotechaireByBibliotheque(UserRepository $UserRepository, Bibliotheque $bibliotheque, Request $request): Response
-    {
-      
-      $user = $this->getUser();
-      // $user = $this->getDoctrine()->getRepository(User::class)->getBibliothequeWithUser($user, $bibliotheque);
-      dump($user);
-      return $this->render('base.html.twig', [
-        'user' => $user,
-        ]);
-    }
-    
+    }    
 }

@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Emprunteur;
+use App\Repository\UserRepository;
+use App\Entity\User;
 class EmprunteurController extends AbstractController
 {
     /**
@@ -12,10 +14,13 @@ class EmprunteurController extends AbstractController
      */
     public function getEmprunteurs()
     {
+        $user = $this->getUser();
+        $userRepository = $this->getDoctrine()->getRepository(User::class);
+        $bibliothecaires = $userRepository->getBibliothequeWithUser($user->getBibliotheque());
         $repository = $this->getDoctrine()->getRepository(Emprunteur::class);
         $emprunteurs = $repository->findAll();
         return $this->render('emprunteur/index.html.twig', [
-            'emprunteurs' => $emprunteurs
+            'emprunteurs' => $emprunteurs, 'bibliothecaires' => $bibliothecaires
         ]);
     }
 

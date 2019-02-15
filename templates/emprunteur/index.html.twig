@@ -11,4 +11,11 @@
           </div>
       </div>
   {% endfor %}
+    {% for bibliotchaire in bibliothecaires %}
+      <div class="card my-5 mx-5 d-flex flex-row justify-content-around align-items-center flex-wrap" style="width: 18rem;">
+          <div class="card-body">
+              <h5 class="card-title">{{bibliotchaire.username}}</h5>
+          </div>
+      </div>
+  {% endfor %}
 {% endblock %}
