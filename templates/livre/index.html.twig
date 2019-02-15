@@ -8,7 +8,7 @@
   <div class="">
     <ul class="nav nav-tabs">
       <li class="nav-item">
-        <a href="{{ path('livre')}}" class = "nav-link">Accueil</a>
+        <a href="{{ path('accueil')}}" class = "nav-link">Accueil</a>
       </li>
       <li class="nav-item">
         <a href="/livres" class="nav-link active">Afficher tous les livres</a>
@@ -31,7 +31,7 @@
     </div>
   </div>
 
-  <div class="container-fluid d-flex flex-row justify-content-between flex-wrap align-items-center">
+  <div class="container-fluid d-flex flex-row justify-content-center flex-wrap align-items-center">
     {% for livre in livres %}
     <div class="card my-5 mx-5 d-flex flex-row justify-content-center align-items-center flex-wrap" style="width: 18rem;">
       <div class="card-body">
