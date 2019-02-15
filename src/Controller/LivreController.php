@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\SecurityController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,14 +21,15 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-
-
+/**
+  * @IsGranted("ROLE_BIBLIOTHECAIRE")
+  */
 
 class LivreController extends AbstractController
 {
 
   /**
-   * @Route("", name="livre")
+   * @Route("/accueil", name="accueil")
    */
   public function home()
   {
@@ -51,7 +53,6 @@ class LivreController extends AbstractController
 
     /**
      * @Route("/ajout/livre", name="app_addLivre")
-     * @IsGranted("ROLE_BIBLIOTHECAIRE")
      */
     public function addLivre(Request $request): Response
     {
