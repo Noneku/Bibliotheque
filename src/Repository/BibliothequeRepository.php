@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Bibliotheque;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,16 +20,16 @@ class BibliothequeRepository extends ServiceEntityRepository
         parent::__construct($registry, Bibliotheque::class);
     }
 
-    // /**
-    //  * @return Bibliotheque[] Returns an array of Bibliotheque objects
-    //  */
+    /**
+     * @return Bibliotheque[] Returns an array of Bibliotheque objects
+     */
         public function getBibliothequeWithUser(Bibliotheque $bibliotheque) {
 
         return $this->createQueryBuilder('b')
             ->addSelect('u')
             ->leftJoin('b.id', 'u')
             ->andWhere('b.id = u.id')
-            ->setParameter('val', $category)
+            ->setParameter('u.id', $bibliotheque)
             ->getQuery()
             ->getResult()
         ;
