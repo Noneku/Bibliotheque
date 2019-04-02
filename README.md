@@ -13,7 +13,7 @@ Compétences acquises :
 - Créer des formulaires et gérer leur soumission
 - Gérer ses utilisateurs et un pare-feu
 
-Fonctionnalitées :
+Fonctionnalités :
 
 - Afficher la liste des livres contenus dans la catalogue ainsi que leur statut (disponible ou prêté)
 - Ajouter un livre au catalogue
